@@ -62,6 +62,7 @@ class OrderManager:
                     continue
                 if base_fee <= 0:
                     print("Dữ liệu không hợp lệ")
+                    continue
                 break
             except ValueError:
                 print("Dữ liệu không hợp lệ")
@@ -74,6 +75,7 @@ class OrderManager:
                     continue
                 if distance < 1 or distance > 5000:
                     print("Dữ liệu không hợp lệ")
+                    continue
                 break
             except ValueError:
                 print("Dữ liệu không hợp lệ")
@@ -86,6 +88,7 @@ class OrderManager:
                     continue
                 if surcharge <= 0:
                     print("Dữ liệu không hợp lệ")
+                    continue
                 break
             except ValueError:
                 print("Dữ liệu không hợp lệ")
@@ -110,6 +113,7 @@ class OrderManager:
                             continue
                         if base_fee <= 0:
                             print("Dữ liệu không hợp lệ")
+                            continue
                         break
                     except ValueError:
                         print("Dữ liệu không hợp lệ")
@@ -123,6 +127,7 @@ class OrderManager:
                             continue
                         if distance <= 0:
                             print("Dữ liệu không hợp lệ")
+                            continue
                         break
                     except ValueError:
                         print("Dữ liệu không hợp lệ")
@@ -136,12 +141,12 @@ class OrderManager:
                             continue
                         if surcharge < 1 or surcharge > 5000:
                             print("Dữ liệu không hợp lệ")
+                            continue
                         break
                     except ValueError:
                         print("Dữ liệu không hợp lệ")
                         continue
                 
-                order = DeliveryOrder()
                 order.base_fee = base_fee
                 order.distance = distance
                 order.surcharge = surcharge
@@ -158,8 +163,8 @@ class OrderManager:
         order_id = input("Nhập mã muốn xóa: ")
         for order in self.orders:
             if order_id == order.order_id:
-                del order
-            break
+                self.orders.remove(order)
+                break
         else:
             print("Không tìm thấy vận đơn phù hợp")
         
@@ -171,10 +176,10 @@ class OrderManager:
         print(f"{"Mã Đơn":<10} | {"Tên người nhận":<20} | {"Cước nền":<20} | "
               f"{"Khoảng cách (km)":<20} | {"Phụ phí":<20} | {"Tổng chi phí":<20} | {"Trạng thái đơn":<20}")
         for order in self.orders:
-            if receiver_name.lower() == order.receiver_name.lower():
+            if receiver_name.lower() in order.receiver_name.lower():
                 print(f"{order.order_id:<10} | {order.receiver_name:<20} | {order.base_fee:<20} | "
                     f"{order.distance:<20} | {order.surcharge:<20} | {order.total_delivery_cost:<20} | {order.delivery_status:<20}")
-            break
+                break
         else:
             print("Không tìm thấy vận đơn phù hợp")
 
